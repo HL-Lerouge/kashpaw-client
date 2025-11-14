@@ -1,0 +1,18 @@
+<ion-toolbar >
+  <ion-buttons slot="start">
+    <ion-button color="medium" (click)="cancel()">
+      <ion-icon style="color: #3d9450;;" name="arrow-back-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+<ion-content class="ion-padding" style="padding-top: 50px">
+  <div style="text-align: center">
+    <ng-container>
+      <ion-title style="color:#3d9450;;">Suppression de compte</ion-title><br>
+      <ion-label style="color:red; padding-top: 50px;">Vous confirmez que vous voulez annuler votre compte kash Paw.
+        N.B: cette action est irréversible et toutes vos données seront supprimeés.</ion-label><br>
+         <ion-button (click)="deleteCompte()">Valider</ion-button>
+    </ng-container>
+  </div>
+</ion-content>
+

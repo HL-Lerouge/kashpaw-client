@@ -1,0 +1,69 @@
+<ion-content [fullscreen]="true" class="auth-content">
+  <div class="logo-container">
+    <div class="logo-border">
+      <img alt="logo" class="logo-img" src="assets/img.png">
+    </div>
+  </div>
+
+  <div class="form-container">
+    <ng-container>
+      <ion-title class="screen-title">Connexion</ion-title>
+      
+      <ion-item lines="none" class="input-item">
+        <ion-label position="stacked" class="input-label">Numéro de téléphone</ion-label>
+        <ion-input 
+          class="custom-input" 
+          [(ngModel)]="dataLogin.telephone"  
+          placeholder="Entrez votre numéro" 
+          minlength="8" 
+          maxlength="8" 
+          type="tel"
+          inputmode="numeric">
+          <div slot="start" class="country-code">+509</div>
+        </ion-input>
+      </ion-item>
+
+      <div class="otp-section" *ngIf="!showOtpInput">
+        <ion-label class="input-label">Entrez votre code PIN</ion-label>
+        <div class="otp-container">
+          <input class="otp-input" type="password" id="otp-input-0" [(ngModel)]="otp[0]" (input)="onInput(0)" (keydown)="onKeyDown(0, $event)" maxlength="1" inputmode="numeric" />
+          <input class="otp-input" type="password" id="otp-input-1" [(ngModel)]="otp[1]" (input)="onInput(1)" (keydown)="onKeyDown(1, $event)" maxlength="1" inputmode="numeric"/>
+          <input class="otp-input" type="password" id="otp-input-2" [(ngModel)]="otp[2]" (input)="onInput(2)" (keydown)="onKeyDown(2, $event)" maxlength="1" inputmode="numeric"/>
+          <input class="otp-input" type="password" id="otp-input-3" [(ngModel)]="otp[3]" (input)="onInput(3)" (keydown)="onKeyDown(3, $event)" maxlength="1" inputmode="numeric"/>
+        </div>
+      </div>
+
+      <ion-item lines="none" class="input-item" *ngIf="showOtpInput">
+        <ion-label position="stacked" class="input-label" >Code OTP</ion-label>
+        <ion-input
+          class="custom-input"
+          [(ngModel)]="dataLogin.otp"
+          placeholder="Entrez le code OTP"
+          minlength="4"
+          maxlength="8"
+          type="number"
+          inputmode="numeric">
+        </ion-input>
+      </ion-item>
+
+      <ion-button (click)="pinoublier()" *ngIf="!showOtpInput" expand="block" class="forgot-pin-btn" fill="clear">
+        Vous avez oublié votre PIN ?
+      </ion-button>
+
+      <ion-button class="submit-btn" expand="block" (click)="connecter()">
+        {{ showOtpInput ? 'Confirmer OTP' : 'Se Connecter' }}
+      </ion-button>
+
+      <div class="register-container">
+        <span class="register-text">Pas de compte?</span>
+        <ion-button routerLink="/creer-compte" class="register-btn" fill="clear">
+          Créer un compte
+        </ion-button>
+      </div>
+    </ng-container>
+  </div>
+
+  <ion-footer class="app-footer">
+    <ion-label>Version : 12 Mars 2025</ion-label>
+  </ion-footer>
+</ion-content>

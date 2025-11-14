@@ -1,0 +1,199 @@
+.button1 {
+  --background: #ffffff; /* Couleur d'arrière-plan */
+  --color: #1bb41b; /* Couleur du texte */
+  --border-radius: 10px; /* Optionnel, pour arrondir les bords */
+}
+
+.button2 {
+  --background: #ffffff; /* Couleur d'arrière-plan */
+  --color: #1bb41b; /* Couleur du texte */
+  --border-radius: 10px; 
+}
+
+.container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+.container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+.container a {
+  text-decoration: none;
+}
+
+.aclass{
+  width: 1000px;
+}
+
+ion-card-content {
+ 
+  border-radius: 15px;
+}
+/* Global Styles */
+ion-content {
+  --background: #f5f5f5;
+}
+
+/* Balance Card */
+.balance-card {
+  background: linear-gradient(135deg, #3d9450, #47c061);
+  color: white;
+  border-radius: 16px;
+  margin: 16px;
+  box-shadow: 0 4px 12px rgba(61, 148, 80, 0.3);
+
+  ion-card-header {
+    padding-bottom: 0;
+  }
+
+  ion-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0;
+  }
+
+  .balance-display {
+    display: flex;
+    align-items: center;
+    
+    ion-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-right: 8px;
+    }
+  }
+
+  .balance-logo {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Quick Actions */
+.quick-actions {
+  padding: 0;
+  margin: 16px;
+
+  ion-button {
+    --padding-start: 0;
+    --padding-end: 0;
+    height: 100%;
+
+    ion-icon {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    ion-label {
+      font-size: 0.75rem;
+      white-space: normal;
+    }
+  }
+}
+
+/* Services Grid */
+.services-grid {
+  padding: 0 16px;
+
+  ion-card {
+    margin: 0;
+    height: 100%;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(61, 148, 80, 0.1);
+    border-radius: 8px;
+    padding: 16px 0;
+
+    ion-icon {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    ion-label {
+      font-size: 0.75rem;
+      display: block;
+    }
+  }
+}
+
+/* Transaction List */
+.transaction-list {
+  background: transparent;
+
+  ion-item {
+    --background: white;
+    --border-radius: 8px;
+    --padding-start: 8px;
+    --padding-end: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    ion-avatar {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #d3fcdc;
+
+      ion-icon {
+        color: #3d9450;
+        font-size: 1.5rem;
+      }
+    }
+
+    h3 {
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    p {
+      font-size: 0.75rem;
+      color: var(--ion-color-medium);
+    }
+
+    ion-note {
+      font-size: 0.8rem;
+      text-align: right;
+    }
+  }
+}
+
+/* Responsive Adjustments */
+@media (min-width: 768px) {
+  .balance-card {
+    margin: 24px auto;
+    max-width: 800px;
+    
+    ion-card-content {
+      padding: 16px 24px;
+    }
+  }
+
+  .quick-actions, .services-grid {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .transaction-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,12 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Achat credit</ion-title>
+    <ion-icon (click)="close()" class="ion-padding" slot="end" size="large" name="close"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-item>
+    <ion-label>Montant : {{montant}}</ion-label>
+  </ion-item>
+  <div id="paypal-button-container"></div>
+</ion-content>

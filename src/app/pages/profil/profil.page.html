@@ -1,0 +1,217 @@
+<ion-card-content style="font-weight: bold;font-size: 20px;
+background-color: #3d9450;border-end-end-radius: 20px;border-end-start-radius: 20px;">
+  <div
+    style="margin-bottom: 40px;margin-top: 40px;display: flex;justify-content: space-between;padding-left: 15px;padding-right: 15px;align-items: center;">
+    <div style="display: flex;align-items: center;">
+
+
+      <div
+        style="height: 40px;width: 40px;border-radius: 50px;border: 2px solid #fff;text-align: center;margin-right: 8px;">
+        <ion-icon style="color: #fff;font-size: 30px;padding-top: 3px;" name="person-outline"></ion-icon>
+      </div>
+      <div style="padding: 0;margin: 0;">
+        <h2 style="font-size: 11px;font-weight: bold;color: #fff">{{compte?.client?.prenom.toUpperCase()}}
+          {{compte?.client?.nom.toUpperCase()}}</h2>
+
+        <h2 style="font-size: 11px;color: #fff;">{{compte?.client?.telephone.toUpperCase()}}</h2>
+      </div>
+    </div>
+
+
+    <div style="background-color:#7df87d;; border-radius: 50px; width: 35px;height: 35px;text-align: center;">
+      <ion-icon style="color: #ffffff; font-size: 25px;padding-top: 5px;font-weight:bold ;"
+        name="notifications-outline">
+      </ion-icon>
+    </div>
+
+  </div>
+
+
+
+</ion-card-content>
+<div
+  style="position: absolute;width: 300px;background-color: #fff;  left:50%;
+  transform: translate(-50%,-50%);height: 100px;border-radius: 20px;margin-top: 170px;z-index: 2;filter: drop-shadow(0px 0px 5px #c3facf);">
+  <div style="padding-left: 15px;padding-top: 20px;">
+    <h2 style="color: #6e6e6e;font-size: 15px;margin-bottom:15px;padding: 0;margin: 0;">Solde</h2>
+
+    <ion-icon style="display: none" (click)="getCompte()" name="refresh-outline"></ion-icon>
+    <ion-row >
+      <ion-col size="9" style="--padding: 0px;">
+        <ion-icon style="display: none" (click)="getCompte()" name="refresh-outline"></ion-icon>
+        <ion-item lines="none" style="--background: #fff;--padding: 0px;--padding-start: 0px">
+          <ion-label style="font-weight: bold; color: #000;padding-right:10px;--padding-start: 0px">HTG</ion-label>
+          <ion-text
+          style="
+            background-color: #3d9450;
+            color: #fff;
+            padding: 8px;
+            border-radius: 5px;
+            width: 150px;
+            display: inline-block;
+          "
+        >
+          {{ showBalance ? compte?.balance : "•••••" }}
+        </ion-text>
+
+        <ion-button fill="clear" (click)="toggleBalance()" style="height: 10px; color:#3d9450;">
+          <ion-icon [name]="showBalance ? 'eye-off' : 'eye'"></ion-icon>
+        </ion-button>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+  </div>
+</div>
+
+
+<ion-content>
+
+  <div class="container">
+
+    <!---------------------------------------------->
+    <ion-card style="padding-top: 6px;box-shadow: 0 0 2px  #c3facf;margin: 15px;">
+
+      <div  style="display: flex;align-items: center;border-bottom: 1px solid rgba(204, 204, 204, 0.288);display: none"
+        class="clickprofil">
+
+        <div style="padding-right: 8px;padding-left: 5px; margin-top:5px;margin-bottom: 5px;">
+          <ion-icon style="font-size: 1rem" color="success" name="information-circle-outline"></ion-icon>
+        </div>
+        <div style="display: flex;align-items: center;justify-content: space-between;width: 100%; ">
+          <div>
+            <h6 style="padding-left: 8px;margin: 0;padding: 0;font-size: 11px;">A propos de Kashpaw</h6>
+          </div>
+          <div><ion-icon style="font-size: 1rem" color="success" name="chevron-forward-outline"></ion-icon></div>
+        </div>
+      </div>
+
+      <div (click)="pinoublier()" class="clickprofil"
+        style="display: flex;align-items: center;border-bottom: 1px solid rgba(204, 204, 204, 0.288);"
+        class="clickprofil">
+
+        <div style="padding-right: 8px;padding-left: 5px; margin-top:5px;margin-bottom: 5px;">
+          <ion-icon style="font-size: 1rem" color="success" name="lock-closed-outline"></ion-icon>
+        </div>
+
+        <div style="display: flex;align-items: center;justify-content: space-between;width: 100%; ">
+          <div>
+            <h6 style="padding-left: 8px;margin: 0;padding: 0;font-size: 11px;">Changer le Pin</h6>
+          </div>
+          <div><ion-icon style="font-size: 1rem" color="success" name="chevron-forward-outline"></ion-icon></div>
+        </div>
+      </div>
+      <div  *ngIf="statut === 'actif'" class="clickprofil"
+           style="display: flex;align-items: center;border-bottom: 1px solid rgba(204, 204, 204, 0.288);"
+           class="clickprofil">
+
+        <div style="padding-right: 8px;padding-left: 5px; margin-top:5px;margin-bottom: 5px;">
+          <ion-icon style="font-size: 1rem" color="success" name="card-outline"></ion-icon>
+        </div>
+
+        <div style="display: flex;align-items: center;justify-content: space-between;width: 100%; ">
+          <div>
+            <h6 style="padding-left: 8px;margin: 0;padding: 0;font-size: 11px;">Compte vérifié</h6>
+          </div>
+          <div><ion-icon style="font-size: 1rem" color="success" name="chevron-forward-outline"></ion-icon></div>
+        </div>
+      </div>
+       <div  *ngIf="statut !== 'actif'" class="clickprofil"
+           style="display: flex;align-items: center;border-bottom: 1px solid rgba(204, 204, 204, 0.288);"
+           class="clickprofil">
+
+        <div style="padding-right: 8px;padding-left: 5px; margin-top:5px;margin-bottom: 5px;">
+          <ion-icon style="font-size: 1rem" color="danger" name="card-outline"></ion-icon>
+        </div>
+
+        <div style="display: flex;align-items: center;justify-content: space-between;width: 100%; ">
+          <div>
+            <h6 style="padding-left: 8px;margin: 0;padding: 0;font-size: 11px; color: red;">Vérifiez votre compte</h6>
+          </div>
+          <div><ion-icon style="font-size: 1rem" color="success" name="chevron-forward-outline"></ion-icon></div>
+        </div>
+      </div>
+
+
+      <div (click)="deleteCompte()" class="clickprofil"
+           style="display: flex;align-items: center;border-bottom: 1px solid rgba(204, 204, 204, 0.288);"
+           class="clickprofil">
+
+        <div style="padding-right: 8px;padding-left: 5px; margin-top:5px;margin-bottom: 5px;">
+          <ion-icon style="font-size: 1rem" color="success" name="trash-outline"></ion-icon>
+        </div>
+
+        <div style="display: flex;align-items: center;justify-content: space-between;width: 100%; ">
+          <div>
+            <h6 style="padding-left: 8px;margin: 0;padding: 0;font-size: 11px;">Supprimer mon compte</h6>
+          </div>
+          <div><ion-icon style="font-size: 1rem" color="success" name="chevron-forward-outline"></ion-icon></div>
+        </div>
+
+
+
+      </div>
+    </ion-card>
+  <!--------------------------------------------------->
+
+
+
+
+      <!---------------------------------------------->
+      <ion-card style="padding-top: 6px;box-shadow: 0 0 2px  #c3facf;margin: 15px;display: none">
+
+        <div style="display: flex;align-items: center;border-bottom: 1px solid rgba(204, 204, 204, 0.288);"
+          class="clickprofil">
+
+          <div style="padding-right: 8px;padding-left: 5px; margin-top:5px;margin-bottom: 5px;">
+            <ion-icon style="font-size: 1rem" color="success" name="language-outline"></ion-icon>
+          </div>
+          <div style="display: flex;align-items: center;justify-content: space-between;width: 100%; ">
+            <div>
+              <h6 style="padding-left: 8px;margin: 0;padding: 0;font-size: 11px;">Changer de langue</h6>
+            </div>
+            <div><ion-icon style="font-size: 1rem" color="success" name="chevron-forward-outline"></ion-icon></div>
+          </div>
+
+        </div>
+
+        <div
+          style="display: flex;align-items: center;border-bottom: 1px solid rgba(204, 204, 204, 0.288);"
+          class="clickprofil">
+
+          <div style="padding-right: 8px;padding-left: 5px; margin-top:5px;margin-bottom: 5px;">
+            <ion-icon style="font-size: 1rem" color="success" name="location-outline"></ion-icon>
+          </div>
+          <div style="display: flex;align-items: center;justify-content: space-between;width: 100%; ">
+            <div>
+              <h6 style="padding-left: 8px;margin: 0;padding: 0;font-size: 11px;">Agents a proximite</h6>
+            </div>
+            <div><ion-icon style="font-size: 1rem" color="success" name="chevron-forward-outline"></ion-icon></div>
+          </div>
+
+        </div>
+
+
+        <div
+        style="display: flex;align-items: center;border-bottom: 1px solid rgba(204, 204, 204, 0.288);"
+        class="clickprofil">
+
+        <div style="padding-right: 8px;padding-left: 5px; margin-top:5px;margin-bottom: 5px;">
+          <ion-icon style="font-size: 1rem" color="success" name="stats-chart-outline"></ion-icon>
+        </div>
+        <div style="display: flex;align-items: center;justify-content: space-between;width: 100%; ">
+          <div>
+            <h6 style="padding-left: 8px;margin: 0;padding: 0;font-size: 11px;">Frais et limite</h6>
+          </div>
+          <div><ion-icon style="font-size: 1rem" color="success" name="chevron-forward-outline"></ion-icon></div>
+        </div>
+
+      </div>
+      </ion-card>
+    <!--------------------------------------------------->
+
+
+    <ion-button class="button2" expand="block" fill="clear" (click)="deconnecter()">Déconnexion</ion-button>
+  </div>
+</ion-content>

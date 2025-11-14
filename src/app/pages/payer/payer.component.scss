@@ -1,0 +1,71 @@
+.button1 {
+  --background: rgba(8,147,28,255); /* Couleur d'arrière-plan */
+  color: #fff ;/* Couleur du texte */
+  --border-radius: 50px; /* Optionnel, pour arrondir les bords */
+  width: 10px;
+}
+
+.button2 {
+  --background:rgba(255,229,0,255); /* Couleur d'arrière-plan */
+  --color: rgba(8,147,28,255); /* Couleur du texte */
+  --border-radius: 10px; /* Optionnel, pour arrondir les bords */
+}
+.scanner-controls {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 10;
+
+  .switch-camera {
+    --background: rgba(255, 255, 255, 0.2);
+    --border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    
+    ion-icon {
+      font-size: 24px;
+      color: white;
+    }
+  }
+
+  .button1 {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+}
+
+.stop{
+  
+  position: absolute;
+  bottom: 90px;
+  width: 300px;
+  z-index: 11;
+  left:50%;
+  transform: translate(-50%,-50%);
+ 
+
+}
+
+.scan-box{
+  border : 3px solid #fff;
+  box-shadow: 0 0 0 100vmax rgba(0,0,0,0.5);
+  content : '';
+  display : block;
+  left:50%;
+  height: 300px;
+  position: absolute;
+  top:50%;
+  transform: translate(-50%,-50%);
+  width: 300px;
+  //background: transparent;
+  background-color: transparent !important;
+  --background: transparent !important;
+  --ion-background-color: transparent !important;
+}
+
+
+
+

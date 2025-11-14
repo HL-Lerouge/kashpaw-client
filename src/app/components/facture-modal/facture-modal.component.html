@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Facture Options</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let option of factureOptions" (click)="selectOption(option)">
+    <img [src]="option.image" alt="Facture Option" />
+    <ion-card-header>
+      <ion-card-title>{{ option.label }}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

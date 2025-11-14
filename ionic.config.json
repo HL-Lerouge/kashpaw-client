@@ -1,0 +1,7 @@
+{
+  "name": "KashPaw",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

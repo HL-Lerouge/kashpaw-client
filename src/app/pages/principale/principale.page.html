@@ -1,0 +1,63 @@
+<ion-content>
+  <ion-tabs>
+    <ion-fab
+      vertical="bottom"
+      horizontal="center"
+      transluccent="true"
+      tab="payer"
+      (click)="clickTab('payer')"
+    >
+      <ion-fab-button routerLink="payer">
+        <ion-icon name="scan-circle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="resumer" (click)="clickTab('resumer')">
+        <!-- <ion-icon color="success" name="apps-outline"></ion-icon> -->
+        <ion-icon style="color: #3d9450" name="home"></ion-icon>
+        <span
+          [ngStyle]="{'color':actif === 'resumer' ? 'rgba(255,229,0,255)' : 'rgba(8,147,28,255)' }"
+        ></span>
+      </ion-tab-button>
+
+      <!--<ion-tab-button tab="envoyer" (click)="clickTab('envoyer')">
+         <ion-icon color="success" name="send-outline"></ion-icon> 
+        <ion-icon color="success" name="exit-outline"></ion-icon>
+        <span [ngStyle]="{'color':actif === 'envoyer' ? 'rgba(255,229,0,255)' : 'rgba(8,147,28,255)' }"></span>
+      </ion-tab-button>-->
+
+      <ion-tab-button tab="recevoir" style="display: none">
+        <ion-icon style="color: #3d9450" name="enter-outline"></ion-icon>
+        Recevoir
+      </ion-tab-button>
+
+      <!--<ion-tab-button tab="payer" (click)="clickTab('payer')"  >
+        <ion-icon class="payer" color="success"  name="scan-circle-outline" ></ion-icon>
+        <span [ngStyle]="{'color':actif === 'payer' ? 'rgba(255,229,0,255)' : 'rgba(8,147,28,255)' }"></span>
+      </ion-tab-button>-->
+      <svg
+        height="50"
+        viewBox="0 0 100 50"
+        width="100"
+        xmlns="http://www.w3.org/2000/svg"
+        style="cursor: pointer"
+      >
+        <path
+          d="M100 0v50H0V0c.543 27.153 22.72 49 50 49S99.457 27.153 99.99 0h.01z"
+          fill="transparent"
+          fill-rule="evenodd"
+        ></path>
+      </svg>
+
+      <ion-tab-button tab="profil" (click)="clickTab('profil')">
+        <ion-icon *ngIf="statut === 'actif'" style="color: #3d9450" name="person-outline"></ion-icon>
+        <ion-icon *ngIf="statut !== 'actif'" style="color: #ff0000" name="person-outline"></ion-icon>
+        <span
+          
+          [ngStyle]="{'color':actif === 'profil' ? 'rgba(255,229,0,255)' : 'rgba(8,147,28,255)' }"
+        ></span>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

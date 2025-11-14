@@ -1,0 +1,49 @@
+.button1 {
+  --background: rgba(8,147,28,255); /* Couleur d'arrière-plan */
+  --color: rgba(255,229,0,255); /* Couleur du texte */
+  --border-radius: 50px; /* Optionnel, pour arrondir les bords */
+}
+
+.button2 {
+  margin-top: 50px;
+  --background:rgba(255,229,0,255); /* Couleur d'arrière-plan */
+  --border-radius: 50px; /* Optionnel, pour arrondir les bords */
+  color: #fff;
+  position: absolute;width: 300px;  left:50%;
+  transform: translate(-50%,-50%);
+ 
+
+}
+
+
+
+.container {
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  transform: translateY(-50%);
+
+}
+
+.container strong {
+  font-size: 25px;
+  line-height: 26px;
+}
+
+.container p {
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #8c8c8c;
+
+  margin: 0;
+}
+
+.container a {
+  text-decoration: none;
+}
+.clickprofil:hover{
+cursor: pointer;
+}

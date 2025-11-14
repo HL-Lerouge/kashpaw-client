@@ -1,0 +1,337 @@
+<ion-content style="text-align: center; margin-top: px;">
+  <div style="margin-bottom: 30px;position: absolute;  left:50%;top: 10%;transform: translate(-50%,-50%);;width: 90px;height: 90px;border-radius: 15px;border:2px solid #3d9450;text-align: center;;">
+    <img alt="logo" style="height: 60px;padding-top: 15px;padding-left: 5px;padding-right: 5px;"  src="assets/img.png">
+  </div>
+ 
+  <ng-container *ngIf="etap0" >
+    <ion-title style="margin-top: 200px;">Création de compte</ion-title>
+    <ion-item style="margin-top: 150px; margin-bottom: 10px;" lines="none">
+      <ion-input class="customm" label="+509"  [(ngModel)]="telephone"  placeholder="Entrez votre numéro " minlength="8" maxlength="8" type="tel"
+              inputmode="numeric"></ion-input>
+    </ion-item>
+    <ion-button style="margin-top: 80px;" class="button1" (click)="envoyerOTP()">Envoyer OTP</ion-button>
+    <ion-button (click)="deconnecter()" expand="block" style="text-transform: lowercase;text-decoration: blink;font-weight: bold;margin-top: 80px; color: #3d9450; " fill="clear"><span style="color: rgba(128, 128, 128, 0.63);padding-right: 5px;"><span style="text-transform: none;">V</span>ous avez déjà un compte?</span> <span style="text-transform: none;">C</span>onnectez ici</ion-button>
+  </ng-container>
+
+  <ng-container *ngIf="etapOtp">
+    <ion-toolbar  style="--background: #ffffff">
+      <ion-buttons slot="start">
+        <ion-button color="medium" (click)="backToEnvoyerOTP()" fill="clear"><ion-icon style="color: #3d9450;" name="arrow-back-outline"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-title style="margin-top: 250px;">Vérification</ion-title>
+      
+    <ion-item style="margin-top: 30px;" lines="none">
+      <ion-input [(ngModel)]="otpAntre" placeholder="Veuillez entrer le code reçu par SMS" minlength="6" maxlength="6" type="password"
+                 inputmode="numeric"></ion-input>
+    </ion-item>
+    <ion-button style="margin-top: 20px;" class="button1" (click)="validerOtp()">Valider</ion-button>
+  </ng-container>
+
+  <ng-container *ngIf="etap1">
+    <ion-toolbar  style="--background: #ffffff">
+      <ion-buttons slot="start">
+        <ion-button color="medium" (click)="backToValiderOtp()" fill="clear"><ion-icon style="color: #3d9450;" name="arrow-back-outline"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <h4 *ngIf="div_info" style="margin-top: 200px;">Informations personnelles</h4>
+    <ion-row *ngIf="div_info">
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Nom</ion-label>
+          <ion-input placeholder="Entrez votre nom" [(ngModel)]="dataRegistration.nom" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Prénom</ion-label>
+          <ion-input placeholder="Entrez votre prénom" [(ngModel)]="dataRegistration.prenom" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">   
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Date naissance</ion-label>
+          <ion-input [max]="maxDateNaisance" placeholder="Date naissance" [(ngModel)]="dataRegistration.date_naissance" type="date"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Sexe</ion-label>
+          <ion-select class="ion-text-wrap" [(ngModel)]="dataRegistration.sexe">
+            <ion-select-option value="masculin">Masculin</ion-select-option>
+            <ion-select-option value="feminin">Feminin</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Departement</ion-label>
+          <ion-select placeholder="Departement" (ionChange)="departementChange($event)" [(ngModel)]="dataRegistration.departement">
+            <ion-select-option *ngFor="let d of departements">
+              {{d?.nom}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Commune</ion-label>
+          <ion-select placeholder="Commune" [(ngModel)]="dataRegistration.ville">
+            <ion-select-option *ngFor="let v of villes">
+              {{v}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Addresse</ion-label>
+          <ion-input placeholder="Entrez votre addresse" [(ngModel)]="dataRegistration.code_postal" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Téléphone</ion-label>
+          <ion-input label="+509"  [(ngModel)]="dataRegistration.telephone"  placeholder="Entrez votre numéro " minlength="8" maxlength="8" type="tel"
+                 inputmode="numeric" readonly></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Type pièce</ion-label>
+          <ion-select placeholder="Type de pièce" [(ngModel)]="dataRegistration.type_piece" (ionChange)="typePieceChange($event)">
+            <ion-select-option value="lisans">Permis de conduire</ion-select-option>
+            <ion-select-option value="kat_identifikasyon_nasyonal">Carte d’identification</ion-select-option>
+            <ion-select-option value="paspo">Passport</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">No pièce</ion-label>
+            <ion-input [inputmode]="inputmode" [maskito]="pieceMask"  [maskitoElement]="maskPredicate" [placeholder]="placeHolderNoPiece" [(ngModel)]="dataRegistration.no_piece"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Nom de la mère</ion-label>
+          <ion-input placeholder="Entrez le nom de votre mère" [(ngModel)]="dataRegistration.nom_mere" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Référence code(Optionnel)</ion-label>
+          <ion-input placeholder="Entrez le code" [(ngModel)]="dataRegistration.ref_code" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Pin</ion-label>
+          <ion-input inputmode="numeric" placeholder="Entrez votre pin" minlength="4" maxlength="4" [(ngModel)]="dataRegistration.pin" type="password"></ion-input>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label style="font-weight: bold" position="stacked">Confirmez votre pin</ion-label>
+          <ion-input inputmode="numeric" placeholder="Confirmez votre pin" minlength="4" maxlength="4"  [(ngModel)]="dataRegistration.pin2" type="password">
+            <ion-input-password-toggle slot="end" style="--ion-color-primary: #3d9450"></ion-input-password-toggle>
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-button class="button1" style="margin-top: 20px" (click)="suivant()">Suivant</ion-button>
+      </ion-col>
+    </ion-row>
+  </ng-container>
+  
+  <ng-container *ngIf="etap2">
+    <ion-toolbar  style="--background: #ffffff">
+      <ion-buttons slot="start">
+        <ion-button color="medium" (click)="back4()" fill="clear"><ion-icon style="color: #3d9450;" name="arrow-back-outline"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+      <div  *ngIf="div_selfi" style="margin-top: 200px;">
+        
+        <div style="text-align: center;">
+          <ion-item lines="none">
+            <ion-label><span style="color: #3d9450;">Vérification</span> d'identité</ion-label>
+          </ion-item>
+        </div>
+        <div>
+  
+          <ion-card-content>
+            <!-- Section Selfie  -->
+            <div
+            style="width: 90vw;
+            background-color: #fff;
+            height: auto;border-radius: 20px;
+            z-index: 2;
+            box-shadow: 0px 0px 5px #c3facf;text-align: center;margin-bottom: 15px;">
+            <ion-row>
+              <ion-col size="12" class="ion-text-left">
+                <ion-icon style="width: 30px; height: 30px; vertical-align: middle;font-size: 30px;color: #3d9450;" name="camera-outline"></ion-icon>
+              
+                <ion-button (click)="addSelfi()" fill="clear" style="margin-left: 10px; color: #3d9450;">
+                  Prendre un selfie
+                </ion-button>
+                <div style="margin-top: 5px;">Selfie avec votre camera frontale pour vérifier votre identité</div>
+              </ion-col>
+              <ion-col size="12">
+                <ion-img *ngIf="selfibase64" style="height: 250px; width: 100%;" [src]="photoService.base64ToImage(selfibase64).src"></ion-img>
+              </ion-col>
+            </ion-row>
+            </div>
+            <!-- Section Pièce Indentité-->
+            <div
+            style="width: 90vw;
+            background-color: #fff;
+            height: auto;border-radius: 20px;
+            z-index: 2;
+            box-shadow: 0px 0px 5px #c3facf;text-align: center;margin-bottom: 15px;">
+            <ion-row>
+              <ion-col size="12" class="ion-text-left">
+                <ion-icon name="id-card-outline" style="width: 30px; height: 30px; vertical-align: middle; color: #3d9450;"></ion-icon>
+                <ion-button (click)="addPiece()" fill="clear" style="margin-left: 10px; color: #3d9450;">
+                  Pièce d'identité
+                </ion-button>
+                <div style="margin-top: 5px;">Téléchargez une image claire de votre pièce d'identité</div>
+              </ion-col>
+              <ion-col size="12">
+                <ion-img *ngIf="piecebase64" style="height: 250px; width: 100%;" [src]="photoService.base64ToImage(piecebase64).src"></ion-img>
+              </ion-col>
+            </ion-row>
+            </div>
+            <!-- Section Preuve Adresse-->
+            <div
+            style="width: 90vw;
+            background-color: #fff;
+            height: auto;border-radius: 20px;
+            z-index: 2;
+            box-shadow: 0px 0px 5px #c3facf;text-align: center;margin-bottom: 15px;">
+            <ion-row>
+              <ion-col size="12" class="ion-text-left">
+                <ion-icon name="document-text-outline" style="width: 30px; height: 30px; vertical-align: middle; color: #3d9450;"></ion-icon>
+                <ion-button (click)="addPreuve()" fill="clear" style="margin-left: 10px; color: #3d9450;">
+                  Preuve Adresse
+                </ion-button>
+                <div style="margin-top: 5px;">Fournir un document prouvant votre adresse</div>
+              </ion-col>
+              <ion-col size="12">
+                <ion-img *ngIf="preuvebase64" style="height: 250px; width: 100%;" [src]="photoService.base64ToImage(preuvebase64).src"></ion-img>
+              </ion-col>
+            </ion-row>
+            </div>
+          </ion-card-content>
+          
+          <ion-card-footer>
+            <ion-row>
+              <ion-col>
+                <ion-button class="button1" *ngIf="selfibase64 && piecebase64 && preuvebase64" style="margin-top: 20px;" (click)="suivant4()">Suivant</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-footer>
+        </div>
+      </div>
+  </ng-container>
+  <ng-container  *ngIf="etap3">
+    <ion-toolbar  style="--background: #ffffff">
+      <ion-buttons slot="start">
+        <ion-button color="medium" (click)="back5()" fill="clear"><ion-icon style="color: #3d9450;" name="arrow-back-outline"></ion-icon></ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <div *ngIf="div_resume" style="margin-top: 200px;">
+      <ion-item lines="none">
+        <ion-label style="color: #3d9450;text-align: center;justify-content: center;align-items: center;"><span >Resumé</span></ion-label>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Nom complet</ion-label>
+            <ion-text>{{ dataRegistration.nom }} {{ dataRegistration.prenom }}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Date naissance</ion-label>
+            <ion-text>{{ dataRegistration.date_naissance }}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Sexe</ion-label>
+            <ion-text>{{ dataRegistration.sexe }}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Departement</ion-label>
+            <ion-text>{{ dataRegistration.departement }}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Ville</ion-label>
+            <ion-text>{{ dataRegistration.ville }}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Code postal</ion-label>
+            <ion-text>{{ dataRegistration.code_postal }}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">{{ dataRegistration.type_piece }}</ion-label>
+            <ion-text>{{ dataRegistration.no_piece }}</ion-text>
+          </ion-item>
+
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Nom mère</ion-label>
+            <ion-text>{{ dataRegistration.nom_mere }}</ion-text>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Référence code</ion-label>
+            <ion-text>{{ dataRegistration.ref_code }}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Téléphone</ion-label>
+            <ion-text>{{ dataRegistration.telephone }}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Pin</ion-label>
+            <ion-text>{{ dataRegistration.pin }}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Selfi</ion-label>
+            <ion-img style="height: 50px" [src]="photoService.base64ToImage(selfibase64).src"></ion-img>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">foto_piece</ion-label>
+            <ion-img style="height: 50px" [src]="photoService.base64ToImage(piecebase64).src"></ion-img>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label style="font-weight: bold">Preuve address</ion-label>
+            <ion-img style="height: 50px" [src]="photoService.base64ToImage(preuvebase64).src"></ion-img>
+          </ion-item>
+
+          <ion-col>
+            <ion-button class="button1" style="margin-top: 20px" (click)="creerCompte()">Suivant</ion-button>
+          </ion-col>
+
+        </ion-col>
+      </ion-row>
+    </div>
+  </ng-container>
+</ion-content>
